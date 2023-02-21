@@ -8,15 +8,15 @@ import org.springframework.data.annotation.CreatedDate;
 import java.time.LocalDateTime;
 
 @Data
-@Entity
-@Table(name = "manufacturer")
+@Entity(name = "manufacturers")
+@Table(name = "manufacturers")
 public class Manufacturer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id",unique=true, nullable = false)
+    @Column(name = "id", unique = true, nullable = false)
     private Long id;
-    @Column(name ="name")
+    @Column(name = "manufacturers_name")
     private String name;
 
     @CreationTimestamp
