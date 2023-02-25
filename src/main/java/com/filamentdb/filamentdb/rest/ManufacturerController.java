@@ -70,8 +70,8 @@ public class ManufacturerController {
     }
 
     @GetMapping("{id}")
-    //public Manufacturer getById(@PathVariable Long id) {
-    public Manufacturer getById(@RequestParam("id") Long id) {
+    public Manufacturer getById(@PathVariable(name = "id") Long id) {
+//    public Manufacturer getById(@RequestParam("id") Long id) {
         //return repository.findById(id).orElseThrow(EntityNotFoundException::new);
         return manufacturerService.getById(id);
     }
