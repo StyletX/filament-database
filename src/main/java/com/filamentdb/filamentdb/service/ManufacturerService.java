@@ -1,7 +1,7 @@
 package com.filamentdb.filamentdb.service;
 
 import com.filamentdb.filamentdb.model.Manufacturer;
-import com.filamentdb.filamentdb.repo.ManufacturerRepository;
+import com.filamentdb.filamentdb.repository.ManufacturerRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -18,9 +18,9 @@ import java.util.Objects;
 public class ManufacturerService {
     private final ManufacturerRepository manufacturerRepository;
 
-    public String hello() {
-        return "Hello";
-    }
+//    public String hello() {
+//        return "Hello";
+//    }
 
     public Page<Manufacturer> getall(String name, LocalDate date, Pageable pageable) {
         if (Objects.nonNull(name)) {
@@ -49,7 +49,10 @@ public class ManufacturerService {
     public Manufacturer update(Long id, Manufacturer patch) {
         Manufacturer manufacturer = getById(id);
         manufacturer.setName(patch.getName());
-        manufacturer.setUpdateDateTime(LocalDateTime.now());
+
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+//        manufacturer.setUpdateDateTime(LocalDateTime.now());
         return manufacturerRepository.save(manufacturer);
     }
 }

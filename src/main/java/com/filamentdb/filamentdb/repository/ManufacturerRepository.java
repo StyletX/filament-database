@@ -1,15 +1,15 @@
-package com.filamentdb.filamentdb.repo;
+package com.filamentdb.filamentdb.repository;
 
 import com.filamentdb.filamentdb.model.Manufacturer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 
 @Repository
-public interface ManufacturerRepository extends JpaRepository<Manufacturer, Long> {
+//public interface ManufacturerRepository extends MyRepository<Manufacturer> {
+public interface ManufacturerRepository extends MyRepository<Manufacturer> {
     Page<Manufacturer> findAllByNameIgnoreCase(String name, Pageable pageable);
 
     Page<Manufacturer> findAllByCreateDateTimeBetween(LocalDateTime from, LocalDateTime to, Pageable pageable);
