@@ -12,6 +12,6 @@ import java.time.LocalDateTime;
 public interface ManufacturerRepository extends MyRepository<Manufacturer> {
     Page<Manufacturer> findAllByNameIgnoreCase(String name, Pageable pageable);
 
-    Page<Manufacturer> findAllByCreateDateTimeBetween(LocalDateTime from, LocalDateTime to, Pageable pageable);
+    Page<Manufacturer> findAllByCreationDateBetween(LocalDateTime from, LocalDateTime to, Pageable pageable);
 
 }

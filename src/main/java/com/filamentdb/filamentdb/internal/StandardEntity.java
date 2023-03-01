@@ -1,6 +1,7 @@
 package com.filamentdb.filamentdb.internal;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -24,7 +25,7 @@ public abstract class StandardEntity extends IdEntity<Long> {
     @Setter(AccessLevel.NONE)
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false, updatable = false)
-//    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     protected LocalDateTime creationDate;
 
     @UpdateTimestamp
@@ -32,7 +33,7 @@ public abstract class StandardEntity extends IdEntity<Long> {
     @Setter(AccessLevel.NONE)
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "modify_date", nullable = false, updatable = false)
-//    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     protected LocalDateTime modificationDate;
 
     @NotNull

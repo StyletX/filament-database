@@ -1,5 +1,7 @@
 package com.filamentdb.filamentdb.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.filamentdb.filamentdb.internal.StandardEntity;
 import jakarta.persistence.*;
@@ -46,7 +48,8 @@ public class Manufacturer extends StandardEntity {
     private String inn;
 
     @NonNull
-    @OneToMany(mappedBy = "manufacturer", cascade = CascadeType.ALL)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @OneToMany(mappedBy = "manufacturerId", cascade = CascadeType.ALL)
     private List<Plastic> plastics;
 
 //    @NonNull

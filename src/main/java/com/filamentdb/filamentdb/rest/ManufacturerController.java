@@ -20,9 +20,9 @@ import java.time.LocalDate;
 public class ManufacturerController {
     private final ManufacturerService manufacturerService;
 
-    public ManufacturerController(ManufacturerService manufacturerService) {
-        this.manufacturerService = manufacturerService;
-    }
+//    public ManufacturerController(ManufacturerService manufacturerService) {
+//        this.manufacturerService = manufacturerService;
+//    }
 
 //    @Autowired
 //    public void setManufacturerService(ManufacturerService manufacturerService) {
