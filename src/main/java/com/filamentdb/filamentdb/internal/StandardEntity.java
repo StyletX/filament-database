@@ -32,7 +32,7 @@ public abstract class StandardEntity extends IdEntity<Long> {
     @LastModifiedDate
     @Setter(AccessLevel.NONE)
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "modify_date", nullable = false, updatable = false)
+    @Column(nullable = false)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     protected LocalDateTime modificationDate;
 
@@ -40,7 +40,4 @@ public abstract class StandardEntity extends IdEntity<Long> {
     @JsonIgnore
     protected boolean deleted;
 
-    public void markDeleted() {
-        deleted = true;
-    }
 }

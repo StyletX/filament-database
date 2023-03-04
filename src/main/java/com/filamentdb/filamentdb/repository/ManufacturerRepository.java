@@ -14,4 +14,9 @@ public interface ManufacturerRepository extends MyRepository<Manufacturer> {
 
     Page<Manufacturer> findAllByCreationDateBetween(LocalDateTime from, LocalDateTime to, Pageable pageable);
 
+    Page<Manufacturer> findAllByFullNameIgnoreCase(String fullName, Pageable pageable);
+
+    Page<Manufacturer> findAllByCityIgnoreCase(String city, Pageable pageable);
+
+    Page<Manufacturer> findAllByInn(String inn, Pageable pageable);
 }

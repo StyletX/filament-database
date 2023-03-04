@@ -1,11 +1,7 @@
 package com.filamentdb.filamentdb.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.filamentdb.filamentdb.internal.StandardEntity;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.Where;
 
@@ -23,12 +19,15 @@ public class Plastic extends StandardEntity {
 //    @Column(name = "fullName")
     private String typeName;
 
+    @NonNull
+    private Float diameter;
+
 //    @ManyToOne
 //    @JsonIgnore
 //    private Manufacturer manufacturer;
     private Long manufacturerId;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Color color;
-//    private Long colorId;
+//    @ManyToOne(cascade = CascadeType.ALL)
+//    private Color color;
+    private Long colorId;
 }

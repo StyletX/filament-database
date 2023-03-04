@@ -1,15 +1,8 @@
 package com.filamentdb.filamentdb.service;
 
-import com.filamentdb.filamentdb.model.Color;
-import com.filamentdb.filamentdb.model.Manufacturer;
 import com.filamentdb.filamentdb.model.Plastic;
-import com.filamentdb.filamentdb.repository.ColorRepository;
-import com.filamentdb.filamentdb.repository.ManufacturerRepository;
 import com.filamentdb.filamentdb.repository.PlasticRepository;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.xml.ws.Response;
-import lombok.RequiredArgsConstructor;
-import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -22,38 +15,26 @@ import java.util.Objects;
 
 @Service
 @Transactional
-@RequiredArgsConstructor
-public class PlasticService {
+public class PlasticService extends CrudService<PlasticRepository> {
     private final PlasticRepository plasticRepository;
-    private final ManufacturerRepository manufacturerRepository;
-    private final ColorRepository colorRepository;
 
-   /* public PlasticService(PlasticRepository plasticRepository, ManufacturerRepository manufacturerRepository,
-                          ColorRepository colorRepository) {
-//        super(repository);    //------------------------???????????????
+    public PlasticService(PlasticRepository repository, PlasticRepository plasticRepository) {
+        super(repository);
         this.plasticRepository = plasticRepository;
-        this.manufacturerRepository = manufacturerRepository;
-        this.colorRepository = colorRepository;
-    }*/
-
-  /*  private Response setAttributesForPlastic(PlasticDTO plasticDTO, Plastic plastic) {
-        Color color = Utils.getEntity(colorRepository, plasticDTO.getPlasticID(), PLASTIC_);
-        Manufacturer manufacturer = Utils.getEntity(manufacturerRepository, plasticDTO.getManufacturerID, MANUFACTURER_);
-
-        plastic.setColor(color);
-        plastic.setManufacturer(manufacturer);
-        plastic.setTypeName(plasticDTO.getTypeName());
-
-        return Response.of(plasticRepository.save(plastic));
     }
 
-    public Response createPlastic(PlasticDTO plasticDTO) {
-        return setAttributesForPlastic(plasticDTO, new Plastic());
-    }*/
-
-    public Page<Plastic> getall(String typeName, LocalDate date, Pageable pageable) {
+    public Page<Plastic> getall(String typeName, Float diameter, Long manufacturerId, Long colorId, LocalDate date, Pageable pageable) {
         if (Objects.nonNull(typeName)) {
             return plasticRepository.findAllByTypeNameIgnoreCase(typeName, pageable);
+        }
+        if (Objects.nonNull(diameter)) {
+            return plasticRepository.findAllByDiameter(diameter, pageable);
+        }
+        if (Objects.nonNull(manufacturerId)) {
+            return plasticRepository.findAllByManufacturerId(manufacturerId, pageable);
+        }
+        if (Objects.nonNull(colorId)) {
+            return plasticRepository.findAllByColorId(colorId, pageable);
         }
         if (Objects.nonNull(date)) {
             return plasticRepository.findAllByCreationDateBetween(
@@ -62,27 +43,25 @@ public class PlasticService {
         return plasticRepository.findAll(pageable);
     }
 
-    public Plastic save(Plastic plastic) {
-        return plasticRepository.save(plastic);
+    private Plastic preSave(Plastic plastic, String typeName, Float diameter, Long manufacturerId, Long colorId) {
+        plastic.setTypeName(typeName == null ? plastic.getTypeName() : typeName);
+        plastic.setDiameter(diameter == null ? plastic.getDiameter() : diameter);
+        plastic.setManufacturerId(manufacturerId == null ? plastic.getManufacturerId() : manufacturerId);
+        plastic.setColorId(colorId == null ? plastic.getColorId() : colorId);
+        return plastic;
     }
 
-    public void delete(Long id) {
-        Plastic byId = getById(id);
-        plasticRepository.delete(byId);
+    public Plastic save(String typeName, Float diameter, Long manufacturerId, Long colorId) {
+        Plastic plastic = new Plastic();
+        return plasticRepository.save(preSave(plastic, typeName, diameter, manufacturerId, colorId));
     }
 
     public Plastic getById(Long id) {
         return plasticRepository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 
-    public Plastic update(Long id, Plastic patch) {
+    public Plastic update(Long id, String typeName, Float diameter, Long manufacturerId, Long colorId) {
         Plastic plastic = getById(id);
-        plastic.setTypeName(patch.getTypeName());
-
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-//        manufacturer.setUpdateDateTime(LocalDateTime.now());
-        return plasticRepository.save(plastic);
+        return plasticRepository.save(preSave(plastic, typeName, diameter, manufacturerId, colorId));
     }
-
 }
