@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 @Data
 @MappedSuperclass
 @ToString(callSuper = true)
-//@JsonView(JsonViews.Base.class)
 @EqualsAndHashCode(callSuper = true)
 @EntityListeners(AuditingEntityListener.class)
 public abstract class StandardEntity extends IdEntity<Long> {
