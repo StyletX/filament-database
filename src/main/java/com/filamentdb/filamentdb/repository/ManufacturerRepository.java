@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 
 @Repository
-//public interface ManufacturerRepository extends MyRepository<Manufacturer> {
 public interface ManufacturerRepository extends MyRepository<Manufacturer> {
     Page<Manufacturer> findAllByNameIgnoreCase(String name, Pageable pageable);
 
@@ -18,5 +17,5 @@ public interface ManufacturerRepository extends MyRepository<Manufacturer> {
 
     Page<Manufacturer> findAllByCityIgnoreCase(String city, Pageable pageable);
 
-    Page<Manufacturer> findAllByInn(String inn, Pageable pageable);
+    Page<Manufacturer> findAllByInn(Long inn, Pageable pageable);
 }

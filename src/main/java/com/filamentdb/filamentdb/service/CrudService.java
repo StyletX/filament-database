@@ -11,11 +11,16 @@ public abstract class CrudService<REP extends MyRepository<? extends StandardEnt
         this.repository = repository;
     }
 
-//    private StandardEntity getEntity(Long id) {
+    //    private StandardEntity getEntity(Long id) {
 //        return repository.findById(id).orElseThrow(Utils.entityNotFound(String.format("..........")));
 //    }
     @Transactional
-    public void delete (Long id) {
+    public void delete(Long id) {
         repository.softDelete(id);
     }
+
+//    @Transactional
+//    public Object getById (Long id) {
+//        return repository.getById(id);
+//    }
 }

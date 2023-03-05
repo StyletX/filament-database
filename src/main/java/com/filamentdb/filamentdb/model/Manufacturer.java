@@ -1,10 +1,12 @@
 package com.filamentdb.filamentdb.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.filamentdb.filamentdb.internal.CustomAnnotations.ManufacturerAnnotations.ManufacturerCity;
+import com.filamentdb.filamentdb.internal.CustomAnnotations.ManufacturerAnnotations.ManufacturerFullName;
+import com.filamentdb.filamentdb.internal.CustomAnnotations.ManufacturerAnnotations.ManufacturerInn;
+import com.filamentdb.filamentdb.internal.CustomAnnotations.ManufacturerAnnotations.ManufacturerName;
 import com.filamentdb.filamentdb.internal.StandardEntity;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Digits;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.Where;
 
@@ -12,34 +14,23 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-//@Table(name = "manufacturers")
 @Entity(name = "manufacturers")
 @Where(clause = "deleted=false")
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true, exclude = "plastics")
-//@JsonView(JsonViews.ManufacturerView.class)
 public class Manufacturer extends StandardEntity {
-
-    @NonNull
-//    @JsonUnwrapped      //????
-//    @Column(name = "shotName")
-//    @JsonView(JsonViews.Base.class)
+    @ManufacturerName
     private String name;
 
-    @NonNull
-//    @Column(name = "fullName")
+    @ManufacturerFullName
     private String fullName;
 
-    @NonNull
-//    @Column(name = "city")
+    @ManufacturerCity
     private String city;
 
-    @NonNull
+    @ManufacturerInn
     @Column(unique = true)
-    @Size(min = 10, max = 10, message = "ИНН состоит из 10 арабских цифр")
-    @Digits(integer = 10, fraction = 0, message = "ИНН состоит из 10 арабских цифр")
-//    @Column(name = "inn", unique = true)
-    private String inn;
+    private Long inn;
 
     @NonNull
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)

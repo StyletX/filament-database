@@ -23,7 +23,7 @@ public class ManufacturerService extends CrudService<ManufacturerRepository> {
         this.manufacturerRepository = manufacturerRepository;
     }
 
-    public Page<Manufacturer> getall(String name, String fullName, String city, String inn, LocalDate creationDate, Pageable pageable) {
+    public Page<Manufacturer> getall(String name, String fullName, String city, Long inn, LocalDate creationDate, Pageable pageable) {
         if (Objects.nonNull(name)) {
             return manufacturerRepository.findAllByNameIgnoreCase(name, pageable);
         }
@@ -45,8 +45,7 @@ public class ManufacturerService extends CrudService<ManufacturerRepository> {
     }
 
     @SneakyThrows
-    private Manufacturer preSave(Manufacturer manufacturer, String name, String fullName, String city, String inn) { // plastic????
-//        Manufacturer bufManufacturer = new Manufacturer();
+    private Manufacturer preSave(Manufacturer manufacturer, String name, String fullName, String city, Long inn) { // plastic????
         manufacturer.setName(name == null ? manufacturer.getName() : name);
         manufacturer.setCity(city == null ? manufacturer.getCity() : city);
         manufacturer.setInn(inn == null ? manufacturer.getInn() : inn);
@@ -60,12 +59,12 @@ public class ManufacturerService extends CrudService<ManufacturerRepository> {
         return manufacturerRepository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 
-    public Manufacturer update(Long id, String name, String fullName, String city, String inn) {  //plastic???
+    public Manufacturer update(Long id, String name, String fullName, String city, Long inn) {  //plastic???
         Manufacturer manufacturer = getById(id);
         return manufacturerRepository.save(preSave(manufacturer, name, fullName, city, inn));
     }
 
-    public Manufacturer save(String name, String fullName, String city, String inn) {
+    public Manufacturer save(String name, String fullName, String city, Long inn) {
         Manufacturer manufacturer = new Manufacturer();
         return manufacturerRepository.save(preSave(manufacturer, name, fullName, city, inn));
     }
